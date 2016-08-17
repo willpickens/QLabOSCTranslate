@@ -1,0 +1,32 @@
+QLAB OSC Translator
+by Will Pickens
+will@willpickens.com
+08-17-2016
+
+INSTRUCTIONS:
+Install Node: https://nodejs.org/en/
+Install Module Node-OSC: https://www.npmjs.com/package/node-osc
+
+Install TouchOSC on Mobile Device
+
+Run in the background on the QLab computer
+set global variables below to match your QLab computer and Touch OSC
+
+NOTES:
+
+TOUCH OSC LABELS
+
+**Current Cue Section**
+/current/type/[number]/
+/current/number/[number]/
+/current/name/[number]/
+/current/time/[number]/
+
+
+**Selected Cue Selection**
+/selected/type/
+/selected/number/
+/selected/name/
+
+**Touch OSC last message sent**
+/descript/label
