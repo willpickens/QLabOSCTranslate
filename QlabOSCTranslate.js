@@ -38,7 +38,7 @@ require("node-osc")
 var osc = require('node-osc');
 
 ///////////////////////////NETWORK SECTION/////////////////////////
-global.appIP = "10.115.211.114"; //Match to touchOSC ip address
+global.appIP = "192.1168.0.3"; //Match to touchOSC ip address
 //global.appIP = "192.168.1.102"; //Match to touchOSC ip address
 //global.appIP = "10.10.3.148"; //Match to touchOSC ip address
 global.appPort = 8000; //Match the touchOSC input port
@@ -150,7 +150,7 @@ oscServer2.on("message", function (msg, rinfo) {
       		//console.log("arrayTime: " + arrayTime[str_ID]);
       		
       		//console.log("/current/time/"+str_ID+"/", data);
-      		//sendToApp("/current/time/"+str_ID+"/", data);
+          sendToApp("/current/time/"+str_ID+"/", data);
       			
 		}
 	
@@ -166,7 +166,7 @@ oscServer2.on("message", function (msg, rinfo) {
           //console.log("arrayDuration: " + arrayDuration[str_ID]);
       		
       		//console.log("/current/time/"+str_ID+"/", data);
-      		//sendToApp("/current/time/"+str_ID+"/", data);
+          sendToApp("/current/time/"+str_ID+"/", data);
       			
 		}
 	
@@ -311,7 +311,7 @@ function addToArray(i,uniqueID){
 		cueDuration = cueDuration;
 		console.log("Remaining Time: -" + seconds2time((cueDuration.toFixed(0) - currentTime.toFixed(0))));
 		
-    sendToApp("/current/time/"+i+"/", seconds2time((cueDuration.toFixed(0) - currentTime.toFixed(0))));
+    sendToApp("/current/remaining/"+i+"/", seconds2time((cueDuration.toFixed(0) - currentTime.toFixed(0))));
 	}
 	
 }
