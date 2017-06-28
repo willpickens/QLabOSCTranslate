@@ -38,16 +38,16 @@ require("node-osc")
 var osc = require('node-osc');
 
 ///////////////////////////NETWORK SECTION/////////////////////////
-//global.appIP = "10.10.10.2"; //Match to touchOSC ip address
-global.appIP = "192.168.1.102"; //Match to touchOSC ip address
+global.appIP = "10.115.211.114"; //Match to touchOSC ip address
+//global.appIP = "192.168.1.102"; //Match to touchOSC ip address
 //global.appIP = "10.10.3.148"; //Match to touchOSC ip address
-global.appPort = 1234; //Match the touchOSC input port
+global.appPort = 8000; //Match the touchOSC input port
 
 global.qlabIP = "0.0.0.0"; //0.0.0.0 is localhost
 global.qlabPort = 53000; //default is 53000
 
 global.localIP = "0.0.0.0";  //0.0.0.0 is localhost
-global.localPort = 4321; //Match the touchOSC output port
+global.localPort = 7000; //Match the touchOSC output port
 ////////////////////////////////////////////////////////////////
 
 
@@ -58,6 +58,7 @@ global.heartbeatTime = 1000; //time in milliseconds  1000 = 1 sec
 
 global.arrayUniqueID = [];
 global.arrayTime = [];
+global.arrayDuration = [];
 
 
 //listen from TouchOSC
@@ -153,6 +154,22 @@ oscServer2.on("message", function (msg, rinfo) {
       			
 		}
 	
+		//get duration of UniqueID
+		if(address.includes("duration")==true){
+			
+			var strEnd = address.length - 9;
+      		var str_ID = address.slice(8,strEnd);
+      		
+      		//str_ID = uniqueID
+      		
+      		arrayDuration[str_ID] = data;
+          //console.log("arrayDuration: " + arrayDuration[str_ID]);
+      		
+      		//console.log("/current/time/"+str_ID+"/", data);
+      		//sendToApp("/current/time/"+str_ID+"/", data);
+      			
+		}
+	
 		
 	}
 	
@@ -210,6 +227,7 @@ oscServer2.on("message", function (msg, rinfo) {
 				
 				
 				sendToQlabNoData("/cue_id/"+uniqueID+"/actionElapsed");
+				sendToQlabNoData("/cue_id/"+uniqueID+"/duration");
 		
 				console.log("data id: " + i);
 				console.log("uniqueID: " + uniqueID);
@@ -275,7 +293,10 @@ function addToArray(i,uniqueID){
 	//console.log("arrayUniqueID: " + arrayUniqueID);
 	
 	var currentTime = arrayTime[uniqueID];
+  var cueDuration = arrayDuration[uniqueID];
 
+  //console.log (arrayDuration)
+  //console.log (arrayTime)
 	//console.log("current Elapsed Time: " + arrayTime[uniqueID]);
 	if(typeof currentTime == "number"){
 		//console.log("current Elapsed Time: " + currentTime.toFixed(0));
@@ -285,6 +306,13 @@ function addToArray(i,uniqueID){
 		sendToApp("/current/time/"+i+"/", seconds2time(currentTime.toFixed(0)));
 	}
 	
+	if(typeof cueDuration == "number"){
+		//console.log("current Elapsed Time: " + cueDuration.toFixed(0));
+		cueDuration = cueDuration;
+		console.log("Remaining Time: " + seconds2time((cueDuration.toFixed(0) - currentTime.toFixed(0))));
+		
+		//sendToApp("/current/time/"+i+"/", seconds2time(cueDuration.toFixed(0) - currentTime.toFixed(0)));
+	}
 	
 }
 
