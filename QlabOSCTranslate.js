@@ -397,6 +397,7 @@ function resetCurrentCueInfo(resetNumber){
 		sendToApp("/current/number/"+remove+"/", "");
 		sendToApp("/current/name/"+remove+"/", "");
 		sendToApp("/current/time/"+remove+"/", "");
+		sendToApp("/current/remaining/"+remove+"/", "");
 		
 	}
 }
