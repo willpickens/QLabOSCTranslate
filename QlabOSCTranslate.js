@@ -38,8 +38,8 @@ require("node-osc")
 var osc = require('node-osc');
 
 ///////////////////////////NETWORK SECTION/////////////////////////
-//global.appIP = "10.115.211.114"; //Match to touchOSC ip address
-global.appIP = "192.168.0.3"; //Match to touchOSC ip address
+global.appIP = "10.115.211.114"; //Match to touchOSC ip address
+//global.appIP = "192.168.0.3"; //Match to touchOSC ip address
 //global.appIP = "10.10.3.148"; //Match to touchOSC ip address
 global.appPort = 8000; //Match the touchOSC input port
 
@@ -242,7 +242,7 @@ oscServer2.on("message", function (msg, rinfo) {
 				
 				
 				
-				updateTouchOSC(i, type, number, listName, uniqueID);
+				updateTouchOSC(i, type, number, listName, uniqueID, colorName);
 				addToArray(i,uniqueID);
 		
 				i++;
@@ -257,14 +257,17 @@ oscServer2.on("message", function (msg, rinfo) {
 				console.log("i: " + i);
 				console.log("resetNumber: " + resetNumber);
 				*/
-				resetCurrentCueInfo(resetNumber);
+        setTimeout(function(){
+          resetCurrentCueInfo(resetNumber);
+        }, 200);
 			
 			}
 		
 		//console.log("uniqueID: " + uniqueID);
 			if(data.length == 0){
-				
-				resetCurrentCueInfo(currentCount);
+        setTimeout(function(){
+          resetCurrentCueInfo(currentCount);
+        }, 200);
 				//console.log("-----RESET-----");
 			}
 			
@@ -327,12 +330,16 @@ function pushFromArray(){
 
 }
 
-function updateTouchOSC(i, type, number, listName, uniqueID){
+function updateTouchOSC(i, type, number, listName, uniqueID, colorName){
 
 	sendToApp("/current/type/"+i+"/", type);
 	sendToApp("/current/number/"+i+"/", number);
 	sendToApp("/current/name/"+i+"/", listName);
-	//sendToApp("/current/time/"+i+"/", uniqueID);
+	//sendToApp("/current/name/"+i+"/color/", colorName);
+  //sendToApp("/current/time/"+i+"/", uniqueID);
+
+
+	//sendToApp("/current/name/"+i+"/", colorName);
 
 }
 
