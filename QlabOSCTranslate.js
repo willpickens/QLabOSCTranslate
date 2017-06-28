@@ -309,7 +309,7 @@ function addToArray(i,uniqueID){
 	if(typeof cueDuration == "number"){
 		//console.log("current Elapsed Time: " + cueDuration.toFixed(0));
 		cueDuration = cueDuration;
-		console.log("Remaining Time: " + seconds2time((cueDuration.toFixed(0) - currentTime.toFixed(0))));
+		console.log("Remaining Time: -" + seconds2time((cueDuration.toFixed(0) - currentTime.toFixed(0))));
 		
 		//sendToApp("/current/time/"+i+"/", seconds2time(cueDuration.toFixed(0) - currentTime.toFixed(0)));
 	}
